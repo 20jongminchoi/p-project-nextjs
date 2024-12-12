@@ -16,7 +16,7 @@ export default async function Page({
       <RefreshButton receiver={space + "receiver"} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={parkingData[space].imageUrl ?? "https://placehold.co/960x540/png"}
+        src={getParkingData()[space].imageUrl ?? "https://placehold.co/960x540/png"}
         alt="parking-image"
         width="960"
         height="540"

@@ -8,3 +8,5 @@ export const parkingData = {
     imageUrl: null,
   },
 };
+
+export const getParkingData = () => parkingData;
