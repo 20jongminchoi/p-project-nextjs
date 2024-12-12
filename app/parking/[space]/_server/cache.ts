@@ -1,4 +1,4 @@
-import { unstable_cache } from 'next/cache';
+import { unstable_cache } from "next/cache";
 
 export const _parkingData = {
   AI: {
@@ -11,6 +11,7 @@ export const _parkingData = {
   },
 };
 
-export const getParkingData = () => _parkingData;
-
-export const parkingData = unstable_cache(getParkingData, ["parkingData"]);
+export const getParkingData = unstable_cache(
+  async () => _parkingData,
+  ["parkingData"]
+);
