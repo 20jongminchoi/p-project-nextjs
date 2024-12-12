@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       parkingData.AI.lastUpdated = formattedDate;
     }
 
-    const userAgent = request.headers.get("user-agent");
+    // const userAgent = request.headers.get("user-agent");
     return new Response(null, { status: 204 }); // No Content 응답
     // if (userAgent && userAgent.includes("Python")) {
     //   // Python 요청 처리
