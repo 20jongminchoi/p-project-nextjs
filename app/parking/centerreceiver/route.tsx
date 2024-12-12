@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       return new Response(null, { status: 204 }); // No Content 응답
     } else {
       // 브라우저 요청 처리
-      return Response.redirect("/parking/center");
+      // return Response.redirect("/parking/center");
     }
   }
 }
