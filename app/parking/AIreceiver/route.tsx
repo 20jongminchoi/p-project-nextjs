@@ -1,17 +1,18 @@
-import { parkingData } from "../[space]/_server/cache";
+import { _parkingData } from "../[space]/_server/cache";
+import { revalidateTag } from 'next/cache'
 
 export async function POST(request: Request) {
   const { image_url } = await request.json();
 
   console.log(image_url);
-  console.log(parkingData.AI.imageUrl);
+  console.log(_parkingData.AI.imageUrl);
 
   if (!image_url) {
     return new Response("image_url is required", { status: 400 });
   } else {
     if (image_url === "ejs") {
-      if (!parkingData.AI.imageUrl) {
-        parkingData.AI.lastUpdated = "서버와 연결이 불안정합니다";
+      if (!_parkingData.AI.imageUrl) {
+        _parkingData.AI.lastUpdated = "서버와 연결이 불안정합니다";
       }
     } else {
       const now = new Date();
@@ -25,8 +26,9 @@ export async function POST(request: Request) {
         .toString()
         .padStart(2, "0")}`;
 
-      parkingData.AI.imageUrl = image_url;
-      parkingData.AI.lastUpdated = formattedDate;
+      _parkingData.AI.imageUrl = image_url;
+      _parkingData.AI.lastUpdated = formattedDate;
+      revalidateTag('parkingData');
     }
 
     // const userAgent = request.headers.get("user-agent");
