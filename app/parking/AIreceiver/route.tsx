@@ -30,12 +30,12 @@ export async function POST(request: Request) {
     }
 
     const userAgent = request.headers.get("user-agent");
-    if (userAgent && userAgent.includes("Python")) {
-      // Python 요청 처리
-      return new Response(null, { status: 204 }); // No Content 응답
-    } else {
-      // 브라우저 요청 처리
-      // return Response.redirect("/parking/aispace");
-    }
+    return new Response(null, { status: 204 }); // No Content 응답
+    // if (userAgent && userAgent.includes("Python")) {
+    //   // Python 요청 처리
+    //   return new Response(null, { status: 204 }); // No Content 응답
+    // } else {
+    //   // 브라우저 요청 처리
+    // }
   }
 }
