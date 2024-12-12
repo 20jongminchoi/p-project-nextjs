@@ -1,5 +1,7 @@
+import { redis } from "@/app/_server/redis";
 import { setParkingData } from "../[space]/_server/cache";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { cacheKeys } from "@/app/_server/cacheKeys";
 
 export async function POST(request: Request) {
   const { image_url } = await request.json();
@@ -22,13 +24,15 @@ export async function POST(request: Request) {
 
     // _parkingData.AI.imageUrl = image_url;
     // _parkingData.AI.lastUpdated = formattedDate;
-    setParkingData({
-      AI: {
-        imageUrl: image_url,
-        lastUpdated: formattedDate,
-      },
-    });
-    revalidateTag("parkingData");
+    // setParkingData({
+    //   AI: {
+    //     imageUrl: image_url,
+    //     lastUpdated: formattedDate,
+    //   },
+    // });
+    await redis.set(cacheKeys.parkingData.AI.imageUrl, image_url);
+    await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
+    revalidatePath("/parking/aispace");
 
     // const userAgent = request.headers.get("user-agent");
     return new Response(null, { status: 204 }); // No Content 응답
