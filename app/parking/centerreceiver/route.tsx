@@ -1,35 +1,34 @@
-import { _parkingData } from "../[space]/_server/cache";
-import { revalidateTag } from 'next/cache';
+import { setParkingData } from "../[space]/_server/cache";
+import { revalidateTag } from "next/cache";
 
 export async function POST(request: Request) {
   const { image_url } = await request.json();
 
   console.log("image_url", image_url);
-  console.log("original image_url", _parkingData.center.imageUrl);
 
   if (!image_url) {
     return new Response("image_url is required", { status: 400 });
   } else {
-    if (image_url === "ejs") {
-      if (!_parkingData.center.imageUrl) {
-        _parkingData.center.lastUpdated = "서버와 연결이 불안정합니다";
-      }
-    } else {
-      const now = new Date();
-      const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")} ${now
-        .getHours()
-        .toString()
-        .padStart(2, "0")}:${now
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")} ${now
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}:${now
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
 
-      _parkingData.center.imageUrl = image_url;
-      _parkingData.center.lastUpdated = formattedDate;
-      revalidateTag('parkingData');
-    }
+    // _parkingData.center.imageUrl = image_url;
+    // _parkingData.center.lastUpdated = formattedDate;
+    setParkingData({
+      center: {
+        imageUrl: image_url,
+        lastUpdated: formattedDate,
+      },
+    });
+    revalidateTag("parkingData");
 
     // const userAgent = request.headers.get("user-agent");
     return new Response(null, { status: 204 }); // No Content 응답

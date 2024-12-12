@@ -8,7 +8,7 @@ export default async function Page({
 }) {
   const space = (await params).space === "aispace" ? "AI" : "center";
   const parkingData = await getParkingData();
-  
+  console.log(parkingData);
   return (
     <div className="flex flex-col items-center mt-4">
       <p className="mb-2">
@@ -17,9 +17,7 @@ export default async function Page({
       <RefreshButton receiver={space + "receiver"} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={
-          parkingData[space].imageUrl ?? "https://placehold.co/960x540/png"
-        }
+        src={parkingData[space].imageUrl ?? "https://placehold.co/960x540/png"}
         alt="parking-image"
         width="960"
         height="540"
