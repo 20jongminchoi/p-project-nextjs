@@ -11,7 +11,7 @@ export default async function Page({
   return (
     <div className="flex flex-col items-center mt-4">
       <p className="mb-2">
-        최근 새로고침 시간: {parkingData[space].lastUpdated}
+        최근 새로고침 시간: {getParkingData()[space].lastUpdated}
       </p>
       <RefreshButton receiver={space + "receiver"} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
