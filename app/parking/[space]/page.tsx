@@ -1,5 +1,5 @@
 import { RefreshButton } from "./_components/RefreshButton";
-import { parkingData } from "./_server/cache";
+import { getParkingData } from "./_server/cache";
 
 export default async function Page({
   params,
