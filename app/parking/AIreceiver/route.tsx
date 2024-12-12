@@ -1,6 +1,5 @@
 import { redis } from "@/app/_server/redis";
-import { setParkingData } from "../[space]/_server/cache";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { cacheKeys } from "@/app/_server/cacheKeys";
 
 export async function POST(request: Request) {
