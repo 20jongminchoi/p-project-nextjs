@@ -7,7 +7,7 @@ export default async function Page({
   params: Promise<{ space: string }>;
 }) {
   const space = (await params).space === "aispace" ? "AI" : "center";
-
+  console.log(getParkingData());
   return (
     <div className="flex flex-col items-center mt-4">
       <p className="mb-2">
