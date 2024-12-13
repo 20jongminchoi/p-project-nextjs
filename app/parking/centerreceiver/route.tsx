@@ -23,9 +23,13 @@ export async function POST(request: Request) {
 
     // _parkingData.center.imageUrl = image_url;
     // _parkingData.center.lastUpdated = formattedDate;
-    await redis.set(cacheKeys.parkingData.center.imageUrl, image_url);
-    await redis.set(cacheKeys.parkingData.center.lastUpdated, formattedDate);
-    revalidatePath("/parking/center");
+    if(image_url === "refresh") {
+      await redis.set(cacheKeys.parkingData.center.lastUpdated, formattedDate)
+    }else{
+      await redis.set(cacheKeys.parkingData.center.imageUrl, image_url);
+      await redis.set(cacheKeys.parkingData.center.lastUpdated, formattedDate);
+      revalidatePath("/parking/center");
+    }
 
     // const userAgent = request.headers.get("user-agent");
     return new Response(null, { status: 204 }); // No Content 응답
