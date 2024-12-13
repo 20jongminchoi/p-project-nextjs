@@ -35,6 +35,7 @@ export async function POST(request: Request) {
       await redis.set(cacheKeys.parkingData.AI.imageUrl, image_url);
       await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
       revalidatePath("/parking/aispace");
+    }
 
     // const userAgent = request.headers.get("user-agent");
     return new Response(null, { status: 204 }); // No Content 응답
