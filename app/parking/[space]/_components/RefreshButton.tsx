@@ -15,7 +15,7 @@ export const RefreshButton = ({ receiver }: Props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ image_url: "https://picsum.photos/1200/800" }),
+          body: JSON.stringify({ image_url: "refresh" }),
         });
         window.location.reload();
       }}
