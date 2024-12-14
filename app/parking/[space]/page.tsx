@@ -13,6 +13,7 @@ export default async function Page({
     "주차 가능 여부를 보려면 새로고침 하세요";
   const imageUrl: string | null =
     (await redis.get(cacheKeys.parkingData[space].imageUrl)) ?? null;
+
   return (
     <div className="flex flex-col items-center mt-4">
       <p className="mb-2">최근 새로고침 시간: {lastUpdated}</p>
@@ -28,5 +29,3 @@ export default async function Page({
     </div>
   );
 }
-
-export const revalidate = 0;

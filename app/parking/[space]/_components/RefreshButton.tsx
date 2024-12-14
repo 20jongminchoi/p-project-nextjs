@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ReceiverBody } from "@/lib/utils";
 
 interface Props {
   receiver: string;
@@ -15,7 +16,7 @@ export const RefreshButton = ({ receiver }: Props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ image_url: "refresh" }),
+          body: JSON.stringify({ refresh: true } satisfies ReceiverBody),
         });
         window.location.reload();
       }}
