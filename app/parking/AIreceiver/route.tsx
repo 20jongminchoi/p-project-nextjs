@@ -11,15 +11,17 @@ export async function POST(request: Request) {
     return new Response("image_url is required", { status: 400 });
   } else {
     const now = new Date();
-    const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")} ${now
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}:${now
-      .getSeconds()
-      .toString()
-      .padStart(2, "0")}`;
+    const options = { timeZone: "Asia/Seoul", hour12: false };
+    const formattedDate = new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      ...options,
+    }).format(now);
+    console.log("formattedDate", formattedDate);
 
     // _parkingData.AI.imageUrl = image_url;
     // _parkingData.AI.lastUpdated = formattedDate;
@@ -29,9 +31,9 @@ export async function POST(request: Request) {
     //     lastUpdated: formattedDate,
     //   },
     // });
-    if(image_url === "refresh") {
+    if (image_url === "refresh") {
       await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
-    }else{
+    } else {
       await redis.set(cacheKeys.parkingData.AI.imageUrl, image_url);
       await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
       revalidatePath("/parking/aispace");
