@@ -11,13 +11,6 @@ export const RefreshButton = ({ receiver }: Props) => {
   return (
     <Button
       onClick={async () => {
-        await fetch(`/parking/${receiver}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ refresh: true } satisfies ReceiverBody),
-        });
         window.location.reload();
       }}
     >

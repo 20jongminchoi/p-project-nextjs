@@ -9,12 +9,8 @@ export async function POST(request: Request) {
 
     const formattedDate = getNow();
 
-    if ("refresh" in body) {
-      await redis.set(cacheKeys.parkingData.center.lastUpdated, formattedDate);
-    } else {
-      await redis.set(cacheKeys.parkingData.center.imageUrl, body.image_url);
-      await redis.set(cacheKeys.parkingData.center.lastUpdated, formattedDate);
-    }
+    await redis.set(cacheKeys.parkingData.AI.imageUrl, body.image_url);
+    await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
 
     revalidatePath("/parking/[space]", "page");
     return new Response(null, { status: 204 });

@@ -22,13 +22,8 @@ export function getNow() {
   return formattedDate;
 }
 
-export const receiverBodySchema = z.union([
-  z.object({
-    image_url: z.string(),
-  }),
-  z.object({
-    refresh: z.literal(true),
-  }),
-]);
+export const receiverBodySchema = z.object({
+  image_url: z.string(),
+});
 
 export type ReceiverBody = z.infer<typeof receiverBodySchema>;
