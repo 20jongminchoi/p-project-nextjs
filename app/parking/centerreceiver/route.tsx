@@ -6,6 +6,9 @@ import { getNow, receiverBodySchema } from "@/lib/utils";
 export async function POST(request: Request) {
   try {
     const body = await request.json().then(receiverBodySchema.parseAsync);
+    if (body.secret_key !== process.env.SECRET_KEY) {
+      return new Response("Invalid Request", { status: 400 });
+    }
 
     const formattedDate = getNow();
 
