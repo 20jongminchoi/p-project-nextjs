@@ -13,12 +13,15 @@ export default async function Page({
     "주차 가능 여부를 보려면 새로고침 하세요";
   const imageUrl: string | null =
     (await redis.get(cacheKeys.parkingData[space].imageUrl)) ?? null;
+  const confidence: string | null =
+    (await redis.get(cacheKeys.parkingData[space].confidence)) ?? null;
 
   return (
     <div className="flex flex-col items-center mt-4">
       <p className="mb-2">최근 새로고침 시간: {lastUpdated}</p>
       <RefreshButton receiver={space + "receiver"} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
+      <p className="mb-2">현재 이미지 분석에 대한 신뢰도는 {confidence}% 입니다.</p>
       <img
         src={imageUrl ?? "https://placehold.co/960x540/png"}
         alt="parking-image"

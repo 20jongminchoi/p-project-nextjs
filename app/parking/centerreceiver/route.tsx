@@ -14,6 +14,7 @@ export async function POST(request: Request) {
 
     await redis.set(cacheKeys.parkingData.AI.imageUrl, body.image_url);
     await redis.set(cacheKeys.parkingData.AI.lastUpdated, formattedDate);
+    await redis.set(cacheKeys.parkingData.AI.confidence, body.confidence);
 
     revalidatePath("/parking/[space]", "page");
     return new Response(null, { status: 204 });
