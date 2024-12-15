@@ -25,6 +25,7 @@ export function getNow() {
 export const receiverBodySchema = z.object({
   image_url: z.string(),
   secret_key: z.string(),
+  confidence: z.string()
 });
 
 export type ReceiverBody = z.infer<typeof receiverBodySchema>;
